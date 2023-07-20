@@ -1,10 +1,12 @@
-from auth_token import auth_token
+# from auth_token import auth_token
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 import torch
 from torch import autocast
 from diffusers import StableDiffusionPipeline
 from io import BytesIO
+import os
+
 import base64 
 
 app = FastAPI()
@@ -18,7 +20,8 @@ app.add_middleware(
 )
 
 device = "cuda"
-model_id = "CompVis/stable-diffusion-v1-4"
+model_id = "stabilityai/stable-diffusion-2-1"
+auth_token = os.getenv("HUGGING_FACE_AUTH_TOKEN")
 pipe = StableDiffusionPipeline.from_pretrained(model_id, revision="fp16", torch_dtype=torch.float16, use_auth_token=auth_token)
 pipe.to(device)
 

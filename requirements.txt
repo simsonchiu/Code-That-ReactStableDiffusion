@@ -1,0 +1,6 @@
+fastapi
+diffusers
+uvicorn
+transformers
+accelerate
+python-dotenv
